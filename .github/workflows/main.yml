@@ -20,6 +20,11 @@ jobs:
         working-directory: ./ppinfra
         run: npm install
 
+      - name: Echo ENV values
+        run: |
+          echo "ESC ENV: $PULUMI_ESC_ENVIRONMENT"
+          echo "REGION: $AWS_REGION"
+
       - uses: pulumi/actions@v5
         with:
           command: up
@@ -28,3 +33,4 @@ jobs:
         env:
           PULUMI_ACCESS_TOKEN: ${{ secrets.PULUMI_ACCESS_TOKEN }}
           PULUMI_ESC_ENVIRONMENT: my-oidc-env
+          AWS_REGION: ${{ secrets.AWS_REGION }}
