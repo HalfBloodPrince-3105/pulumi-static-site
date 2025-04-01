@@ -26,7 +26,7 @@ jobs:
       - uses: pulumi/actions@v5
         with:
           command: destroy
-          stack-name: HalfBloodPrince-3105/borda-workshop/dev
+          stack-name: HalfBloodPrince-3105/myworkshop/dev
           work-dir: ./ppinfra
         env:
           PULUMI_ACCESS_TOKEN: ${{ secrets.PULUMI_ACCESS_TOKEN }}
