@@ -27,4 +27,4 @@ jobs:
           work-dir: ./ppinfra
         env:
           PULUMI_ACCESS_TOKEN: ${{ secrets.PULUMI_ACCESS_TOKEN }}
-          PULUMI_ESC_ENVIRONMENT: HalfBloodPrince-3105/myworkshop-oicd/my-oidc-env
+          PULUMI_ESC_ENVIRONMENT: my-oidc-env
