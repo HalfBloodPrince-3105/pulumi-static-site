@@ -25,5 +25,6 @@ jobs:
           command: up
           stack-name: HalfBloodPrince-3105/myworkshop/dev
           work-dir: ./ppinfra
+          environment: my-oidc-env
         env:
           PULUMI_ACCESS_TOKEN: ${{ secrets.PULUMI_ACCESS_TOKEN }}
