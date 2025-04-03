@@ -3,7 +3,7 @@ name: Deploy and Destroy Static Website
 on:
   push:
     branches:
-      - master
+      - main
 
 permissions:
   id-token: write
