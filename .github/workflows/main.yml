@@ -20,11 +20,17 @@ jobs:
         env:
           PULUMI_ACCESS_TOKEN: ${{ secrets.PULUMI_ACCESS_TOKEN }}
         run: pulumi login
+    
+      - name: Retrieve AWS IAM Role ARN from Pulumi
+        run: |
+          echo "Retrieving AWS_ROLE_ARN from Pulumi environment..."
+          AWS_ROLE_ARN=$(pulumi env open HalfBloodPrince-3105/archit_pulumi/prod environmentVariables.pulumiArn | tr -d '"')
+          echo "PULUMI_AWS_ROLE_ARN=$AWS_ROLE_ARN" >> $GITHUB_ENV
       
       - name: Configure AWS OIDC Credentials
         uses: aws-actions/configure-aws-credentials@v2
         with:
-            role-to-assume: ${{ env.pulumiArn }}
+            role-to-assume: ${{ env.PULUMI_AWS_ROLE_ARN }}
             role-session-name: GitHubActionsSession
             aws-region: us-west-2
              
