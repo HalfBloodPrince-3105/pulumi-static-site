@@ -12,6 +12,9 @@ config:
   errorDocument:
     type: string
     default: error.html
+  pulumiArn:
+    type: string
+    default: arn:aws:iam::796973512271:role/PulumiOIDCRole
   pulumi:tags:
     value:
       pulumi:template: static-website-aws-yaml
