@@ -70,4 +70,4 @@ jobs:
         run: |
           pulumi stack select dev
           pulumi destroy --yes
-          pulumi stack rm dev --yes
+          pulumi stack rm dev --yes
