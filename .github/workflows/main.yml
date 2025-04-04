@@ -75,12 +75,3 @@ jobs:
       - name: Install Pulumi Dependencies
         run: |
           pip install pulumi pulumi-aws
-
-      - name: Destroy Pulumi Resources
-        env:
-          PULUMI_ACCESS_TOKEN: ${{ secrets.PULUMI_ACCESS_TOKEN }}
-          AWS_REGION: us-west-2
-        run: |
-          pulumi stack select prod
-          pulumi destroy --yes
-          pulumi stack rm prod --yes
