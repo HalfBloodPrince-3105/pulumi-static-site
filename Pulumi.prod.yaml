@@ -1,2 +1,2 @@
 environment:
-  - archit_pulumi/prod
+  - archit_pulumi/dev
