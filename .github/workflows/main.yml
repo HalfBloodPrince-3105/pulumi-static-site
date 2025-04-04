@@ -24,7 +24,7 @@ jobs:
       - name: Retrieve AWS IAM Role ARN from Pulumi
         run: |
           echo "Retrieving AWS_ROLE_ARN from Pulumi environment..."
-          AWS_ROLE_ARN=$(pulumi env open HalfBloodPrince-3105/archit_pulumi/dev environmentVariables.pulumiArn | tr -d '"')
+          AWS_ROLE_ARN=$(pulumi env open HalfBloodPrince-3105/archit_pulumi/prod environmentVariables.pulumiArn | tr -d '"')
           echo "PULUMI_AWS_ROLE_ARN=$AWS_ROLE_ARN" >> $GITHUB_ENV
       
       - name: Configure AWS OIDC Credentials
@@ -43,35 +43,5 @@ jobs:
           PULUMI_ACCESS_TOKEN: ${{ secrets.PULUMI_ACCESS_TOKEN }}
           AWS_REGION: us-west-2
         run: |
-          pulumi stack select dev
+          pulumi stack select prod
           pulumi up --yes
-
-  destroy:
-    needs: deploy  # Ensures 'destroy' runs only after 'deploy' completes successfully
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repo
-        uses: actions/checkout@v3
-
-      - name: Set up Pulumi
-        env:
-          PULUMI_ACCESS_TOKEN: ${{ secrets.PULUMI_ACCESS_TOKEN }}
-        run: pulumi login
-
-      - name: Retrieve AWS IAM Role ARN from Pulumi
-        run: |
-          echo "Retrieving AWS_ROLE_ARN from Pulumi environment..."
-          AWS_ROLE_ARN=$(pulumi env open HalfBloodPrince-3105/archit_pulumi/dev environmentVariables.pulumiArn | tr -d '"')
-          echo "PULUMI_AWS_ROLE_ARN=$AWS_ROLE_ARN" >> $GITHUB_ENV
-
-      
-      - name: Configure AWS OIDC Credentials
-        uses: aws-actions/configure-aws-credentials@v2
-        with:
-          role-to-assume: ${{ env.PULUMI_AWS_ROLE_ARN }}
-          role-session-name: GitHubActionsSession
-          aws-region: us-west-2
-
-      - name: Install Pulumi Dependencies
-        run: |
-          pip install pulumi pulumi-aws
